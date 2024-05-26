@@ -10,4 +10,5 @@ public interface DocenteRepositoryInt extends CrudRepository<DocenteEntity, Inte
     @Query("SELECT COUNT(c) > 0 FROM DocenteEntity c WHERE c.correo = :correo")
     Boolean existePorCorreo(String correo);
 
+    Boolean existsByNumeroIdentificacion(String numeroIdentificacion);
 }

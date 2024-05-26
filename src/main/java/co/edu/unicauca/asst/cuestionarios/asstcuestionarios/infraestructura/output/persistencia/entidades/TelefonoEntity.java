@@ -30,10 +30,10 @@ public class TelefonoEntity {
     private Integer idTelefono;
 
     @Enumerated(EnumType.STRING) // Mapea el enum como una cadena en la base de datos
-    @Column(name = "tipo_telefono", length = 30)
+    @Column(name = "tipo_telefono", length = 20)
     private TipoTelefono tipoTelefono;
 
-    @Column(length = 30)
+    @Column(length = 10)
     private String numero;
 
     @OneToOne()

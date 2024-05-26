@@ -7,8 +7,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MapperBean {
 
-    @Bean
-    ModelMapper modelMapper() {
+    @Bean(name = "modelMapperCuestionario")
+    ModelMapper modelMapperCuestionario() {
+        ModelMapper objMapper = new ModelMapper();
+        objMapper.getConfiguration().setAmbiguityIgnored(true);
+        return objMapper;
+    }
+
+    @Bean(name = "modelMapperDocente")
+    ModelMapper modelMapperDocente() {
+        ModelMapper objMapper = new ModelMapper();
+        objMapper.getConfiguration().setAmbiguityIgnored(true);
+        return objMapper;
+    }
+    
+    @Bean(name = "modelMapperRespuestas")
+    ModelMapper modelMapperRespuesta() {
         ModelMapper objMapper = new ModelMapper();
         objMapper.getConfiguration().setAmbiguityIgnored(true);
         return objMapper;

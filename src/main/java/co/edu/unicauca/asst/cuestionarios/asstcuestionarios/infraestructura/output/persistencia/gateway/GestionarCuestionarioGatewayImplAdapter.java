@@ -4,14 +4,15 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.GestionarCuestionarioGatewayIntPort;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.modelos.Cuestionario;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.entidades.CuestionarioEntity;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.repositorios.CuestionarioRepositoryInt;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.repositorios.TipoPreguntaRepositoryInt;
-import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -24,7 +25,7 @@ public class GestionarCuestionarioGatewayImplAdapter implements GestionarCuestio
     public GestionarCuestionarioGatewayImplAdapter(
         CuestionarioRepositoryInt cuestionarioRepositoryInt,
         TipoPreguntaRepositoryInt tipoPreguntaRepositoryInt,
-        ModelMapper cuestionarioModelMapper) 
+        @Qualifier("modelMapperCuestionario") ModelMapper cuestionarioModelMapper) 
     {
         this.cuestionarioRepositoryInt = cuestionarioRepositoryInt;
         this.tipoPreguntaRepositoryInt = tipoPreguntaRepositoryInt;
@@ -32,6 +33,7 @@ public class GestionarCuestionarioGatewayImplAdapter implements GestionarCuestio
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean existeCuestionarioPorTitulo(String titulo) {
         return this.cuestionarioRepositoryInt.existeCuestionarioConTitulo(titulo);
     }
@@ -51,6 +53,7 @@ public class GestionarCuestionarioGatewayImplAdapter implements GestionarCuestio
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Cuestionario> listarCuestionarios(String titulo) {
         Iterable<CuestionarioEntity> lista = this.cuestionarioRepositoryInt.findAllByTituloContainingIgnoreCaseOrderByIdCuestionarioDesc(titulo);
         List<Cuestionario> listaObtenida = this.cuestionarioModelMapper.map(lista, new TypeToken<List<Cuestionario>>() {

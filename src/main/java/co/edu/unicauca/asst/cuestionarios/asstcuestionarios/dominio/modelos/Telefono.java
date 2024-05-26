@@ -14,7 +14,5 @@ public class Telefono {
     private Docente objPersona;
 
     public Telefono() {
-
     }
-
 }

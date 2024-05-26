@@ -2,11 +2,11 @@ package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.out
 
 import org.springframework.stereotype.Service;
 
-import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.CuestionarioFormateadorResultadosIntPort;
+import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadYaExisteException;
 
 @Service
-public class CuestionarioFormateadorResultadosImplAdapter implements CuestionarioFormateadorResultadosIntPort{
+public class FormateadorResultadosImplAdapter implements FormateadorResultadosIntPort {
 
     @Override
     public void retornarRespuestaErrorEntidadExistente(String mensaje) {

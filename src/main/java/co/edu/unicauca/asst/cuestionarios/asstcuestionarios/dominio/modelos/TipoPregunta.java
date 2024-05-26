@@ -15,7 +15,6 @@ public class TipoPregunta {
     private List<Pregunta> preguntas;
 
     public TipoPregunta() {
-
     }
 
 }
