@@ -1,5 +1,6 @@
 package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.input.controllerGestionarCuestionarios.DTOPeticion;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,6 +19,7 @@ public class PreguntaDTOPeticion {
     @Size(min = 10, max = 90, message = "{pregunta.enunciado.size}")
     private String enunciado;
     
+    @Valid
     @NotNull(message = "{pregunta.tipopregunta.empty")
     private TipoPreguntaDTOPeticion objTipoPregunta;
 

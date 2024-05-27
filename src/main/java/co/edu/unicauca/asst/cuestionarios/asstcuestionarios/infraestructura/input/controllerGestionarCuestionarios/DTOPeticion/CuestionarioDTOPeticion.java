@@ -2,6 +2,7 @@ package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.inp
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class CuestionarioDTOPeticion {
     @Size(min = 5, max = 90, message = "{cuestionario.descripcion.size}")
     private String descripcion;
     
+    @Valid
     private List<PreguntaDTOPeticion> preguntas;
 
 }

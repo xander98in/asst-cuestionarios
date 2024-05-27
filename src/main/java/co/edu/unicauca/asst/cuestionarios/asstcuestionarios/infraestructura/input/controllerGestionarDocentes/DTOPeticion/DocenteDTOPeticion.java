@@ -3,6 +3,7 @@ package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.inp
 import java.util.List;
 
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.validation.ValidTipoIdentificacion;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -41,8 +42,10 @@ public class DocenteDTOPeticion {
     @Size(min = 5, max = 30, message = "{docente.vinculacion.size}")
     private String vinculacion;
 
+    @Valid
     private TelefonoDTOPeticion objTelefono;
 
+    @Valid
     @NotNull(message = "{docente.departamentos.empty}")
     private List<DepartamentoDTOPeticion> departamentos;
 }
