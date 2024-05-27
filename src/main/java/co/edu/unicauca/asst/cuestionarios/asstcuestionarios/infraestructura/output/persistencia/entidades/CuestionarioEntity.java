@@ -38,4 +38,7 @@ public class CuestionarioEntity {
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "objCuestionario")
     private List<PreguntaEntity> preguntas;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objCuestionario")
+    private List<RespuestaEntity> respuestas;
+
 }

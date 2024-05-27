@@ -10,8 +10,9 @@ public class Respuesta {
     private Integer idRespuesta;
     private String descripcion;
     private Docente objDocente;
+    private Cuestionario objCuestionario;
     private Pregunta objPregunta;
-
+    
     public Respuesta() {
 
     }

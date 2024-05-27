@@ -13,6 +13,7 @@ public class Cuestionario {
     private String titulo;
     private String descripcion;
     private List<Pregunta> preguntas;
+    private List<Respuesta> respuestas;
 
     public Cuestionario() {
     }
