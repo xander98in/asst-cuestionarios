@@ -1,19 +1,23 @@
 package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.validation;
 
-import java.util.Arrays;
-
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.commons.enums.TipoIdentificacion;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class TipoIdentificacionValidator implements ConstraintValidator<ValidTipoIdentificacion, TipoIdentificacion> {
+public class TipoIdentificacionValidator implements ConstraintValidator<ValidTipoIdentificacion, String> {
 
     @Override
-    public boolean isValid(TipoIdentificacion value, ConstraintValidatorContext context) {
+    public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null) {
             return false;
         }
-        return Arrays.asList(TipoIdentificacion.values()).contains(value);
-    }
+
+        try {
+            TipoIdentificacion.valueOf(value);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    } 
 
 }

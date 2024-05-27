@@ -2,7 +2,6 @@ package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.inp
 
 import java.util.List;
 
-import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.commons.enums.TipoIdentificacion;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.validation.ValidTipoIdentificacion;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +20,7 @@ public class DocenteDTOPeticion {
 
     @NotNull(message = "{docente.tipo_identificacion.not_null}")
     @ValidTipoIdentificacion(message = "{docente.tipo_identificacion.valid_tipo_identificacion}")
-    private TipoIdentificacion tipoIdentificacion;
+    private String tipoIdentificacion;
 
     @NotEmpty(message = "{docente.numero_identificacion.empty}")
     @Size(min = 5, max = 10, message = "{docente.numero_identificacion.size}")

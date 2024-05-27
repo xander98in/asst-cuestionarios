@@ -1,6 +1,5 @@
 package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.input.controllerGestionarDocentes.DTOPeticion;
 
-import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.commons.enums.TipoTelefono;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.validation.ValidTipoTelefono;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
