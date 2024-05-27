@@ -6,10 +6,10 @@ import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.commons.enum
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class TipoTelefonoValidator implements ConstraintValidator<ValidTipoTelefono, String> {
+public class TipoTelefonoValidator implements ConstraintValidator<ValidTipoTelefono, TipoTelefono> {
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(TipoTelefono value, ConstraintValidatorContext context) {
         if( value == null ) {
             return false;
         }

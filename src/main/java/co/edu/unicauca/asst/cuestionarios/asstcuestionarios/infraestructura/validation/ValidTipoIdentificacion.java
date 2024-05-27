@@ -10,7 +10,7 @@ import jakarta.validation.Payload;
 
 @Constraint(validatedBy = TipoIdentificacionValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE, ElementType.PARAMETER })
 public @interface ValidTipoIdentificacion {
 
     String message() default "Tipo de identificación inválido";

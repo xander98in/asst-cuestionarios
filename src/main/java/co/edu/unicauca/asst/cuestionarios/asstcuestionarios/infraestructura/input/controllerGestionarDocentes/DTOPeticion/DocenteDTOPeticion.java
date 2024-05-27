@@ -21,7 +21,7 @@ public class DocenteDTOPeticion {
 
     @NotNull(message = "{docente.tipo_identificacion.not_null}")
     @ValidTipoIdentificacion(message = "{docente.tipo_identificacion.valid_tipo_identificacion}")
-    private String tipoIdentificacion;
+    private TipoIdentificacion tipoIdentificacion;
 
     @NotEmpty(message = "{docente.numero_identificacion.empty}")
     @Size(min = 5, max = 10, message = "{docente.numero_identificacion.size}")

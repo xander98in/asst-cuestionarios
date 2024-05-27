@@ -6,14 +6,14 @@ import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.commons.enum
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class TipoIdentificacionValidator implements ConstraintValidator<ValidTipoIdentificacion, String> {
+public class TipoIdentificacionValidator implements ConstraintValidator<ValidTipoIdentificacion, TipoIdentificacion> {
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(TipoIdentificacion value, ConstraintValidatorContext context) {
         if (value == null) {
             return false;
         }
-        return value == "CC" || value == "CE" || value == "TI";
+        return Arrays.asList(TipoIdentificacion.values()).contains(value);
     }
 
 }
