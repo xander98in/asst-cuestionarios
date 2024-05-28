@@ -38,7 +38,7 @@ public class RespuestaEntity {
     @JoinColumn(name="id_cuestionario", nullable = false)
     private CuestionarioEntity objCuestionario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_pregunta", nullable = false)
     private PreguntaEntity objPregunta;
 

@@ -45,6 +45,10 @@ public class GestionarDocenteCUAdapter implements GestionarDocenteCUIntPort {
     @Override
     public List<Docente> listarDocentes() {
         List<Docente> listaObtenida = objGestionarDocenteGateway.listarDocentes();
+        if(listaObtenida.isEmpty()) {
+            this.objFormateadorResultados
+                .retornarRespuestaErrorEntidadNoExistente("No existen docentes registrados");
+        }
         return listaObtenida;
     }
 }

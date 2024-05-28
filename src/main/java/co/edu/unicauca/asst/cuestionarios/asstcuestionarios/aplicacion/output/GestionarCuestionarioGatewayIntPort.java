@@ -10,6 +10,8 @@ public interface GestionarCuestionarioGatewayIntPort {
 
     public Cuestionario guardarCuestionario(Cuestionario objCuestionario);
 
-    public List<Cuestionario> listarCuestionarios(String titulo);
+    public List<Cuestionario> listarCuestionarios();
+
+    public List<Cuestionario> listarCuestionariosConTitulo(String titulo);
 
 }

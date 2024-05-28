@@ -33,7 +33,7 @@ public class DocenteEntity extends PersonaEntity {
     @Column(length = 30)
     private String vinculacion;
 
-    @OneToOne(cascade = { CascadeType.REMOVE, CascadeType.PERSIST }, mappedBy = "objPersona")
+    @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER , mappedBy = "objPersona")
     private TelefonoEntity objTelefono;
 
     @ManyToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)

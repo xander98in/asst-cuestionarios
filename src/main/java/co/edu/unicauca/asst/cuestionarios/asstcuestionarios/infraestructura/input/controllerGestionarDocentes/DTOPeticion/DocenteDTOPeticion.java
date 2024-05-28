@@ -43,6 +43,7 @@ public class DocenteDTOPeticion {
     private String vinculacion;
 
     @Valid
+    @NotNull(message = "{docente.obj_telefono.empty}")
     private TelefonoDTOPeticion objTelefono;
 
     @Valid

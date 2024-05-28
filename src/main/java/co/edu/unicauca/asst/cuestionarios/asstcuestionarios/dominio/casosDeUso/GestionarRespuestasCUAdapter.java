@@ -22,20 +22,43 @@ public class GestionarRespuestasCUAdapter implements GestionarRespuestasCUIntPor
 
     @Override
     public List<Respuesta> crearRespuestas(List<Respuesta> respuestas) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'crearRespuestas'");
+        List<Respuesta> respuestasCreadas = null;
+        if(!this.objGestionarRespuestasGateway.sePuedeResponderCuestionario(respuestas)) {
+            System.out.println("Cuestionario ya respondido");
+            this.objFormateadorResultados
+                .retornarRespuestaErrorReglaDeNegocio("Error, el cuestionario ya fue respondido por un docente");
+        }
+        else {
+            respuestasCreadas = this.objGestionarRespuestasGateway.guardarRespuestas(respuestas);
+        }
+    
+        return respuestasCreadas;
     }
 
     @Override
     public List<Respuesta> listarRespuestas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarRespuestas'");
+        List<Respuesta> listaObtenida = this.objGestionarRespuestasGateway.listarRespuestas();
+        return listaObtenida;
     }
 
     @Override
     public List<Respuesta> listarRespuestasPorDocente(String numeroIdentificacion) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarRespuestasPorDocente'");
+        List<Respuesta> listaObtenida = this.objGestionarRespuestasGateway.listarRespuestasPorDocente(numeroIdentificacion);
+        if(listaObtenida.isEmpty()) {
+            this.objFormateadorResultados
+                .retornarRespuestaErrorEntidadNoExistente("No existen respuestas asociadas al docente con ID: " + numeroIdentificacion);
+        }
+        return listaObtenida;
+    }
+
+    @Override
+    public List<Respuesta> listarRespuestasPorDocenteConId(Integer idPersona) {
+        List<Respuesta> listaObtenida = this.objGestionarRespuestasGateway.listarRespuestasPorDocenteConId(idPersona);
+        if(listaObtenida.isEmpty()) {
+            this.objFormateadorResultados
+                .retornarRespuestaErrorEntidadNoExistente("No existen respuestas asociadas al docente con ID: " + idPersona);
+        }
+        return listaObtenida;
     }
 
 }

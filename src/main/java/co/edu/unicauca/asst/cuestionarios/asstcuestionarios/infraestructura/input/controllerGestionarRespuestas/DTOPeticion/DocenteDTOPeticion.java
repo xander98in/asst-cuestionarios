@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DocenteDTOPeticion {
+    
     @NotNull(message = "{persona.id_persona.not_null}")
     @Positive(message = "{persona.id_persona.positive}")
     private Integer idPersona;

@@ -18,6 +18,7 @@ import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.inpu
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.input.controllerGestionarCuestionarios.DTORespuesta.CuestionarioDTORespuesta;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.input.controllerGestionarCuestionarios.mappers.CuestionarioMapperInfraestructuraDominio;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -37,14 +38,22 @@ public class CuestionarioRestController {
             objMapeador.mappearDeCuestionarioARespuesta(objCuestionarioCreado),
             HttpStatus.CREATED
         );
-        
         return objRespuesta;
     }
 
     @GetMapping("/listar/{titulo}")
-    public ResponseEntity<List<CuestionarioDTORespuesta>> listar(@PathVariable String titulo) {
+    public ResponseEntity<List<CuestionarioDTORespuesta>> listarPorTitulo(@PathVariable String titulo) {
         ResponseEntity<List<CuestionarioDTORespuesta>> objRespuesta = new ResponseEntity<List<CuestionarioDTORespuesta>>(
-            objMapeador.mappearDeCuestionariosARespuesta(this.objGestionarCuestionariosCUInt.listarCuestionarios(titulo)),
+            objMapeador.mappearDeCuestionariosARespuesta(this.objGestionarCuestionariosCUInt.listarCuestionariosConTitulo(titulo)),
+            HttpStatus.OK
+        );
+        return objRespuesta;
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<CuestionarioDTORespuesta>> listarCuestionarios() {
+        ResponseEntity<List<CuestionarioDTORespuesta>> objRespuesta = new ResponseEntity<List<CuestionarioDTORespuesta>>(
+            objMapeador.mappearDeCuestionariosARespuesta(this.objGestionarCuestionariosCUInt.listarCuestionarios()),
             HttpStatus.OK
         );
         return objRespuesta;

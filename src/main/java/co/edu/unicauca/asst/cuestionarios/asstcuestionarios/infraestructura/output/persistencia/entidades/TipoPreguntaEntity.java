@@ -32,7 +32,7 @@ public class TipoPreguntaEntity {
     @Column(length = 30)
     private String nombre;
 
-    @Column(length = 60)
+    @Column(length = 90)
     private String descripcion;
 
     @OneToMany(cascade = { CascadeType.REMOVE },

@@ -3,7 +3,6 @@ package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.con
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.CuestionarioFormateadorResultadosIntPort;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.GestionarCuestionarioGatewayIntPort;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.GestionarDocenteGatewayIntPort;
@@ -19,9 +18,9 @@ public class BeanConfigurations {
     @Bean
     GestionarCuestionarioCUAdapter crearGestionarCuestionarioCUInt(
         GestionarCuestionarioGatewayIntPort objGestionarCuestionarioGateway,
-        CuestionarioFormateadorResultadosIntPort objCuestionarioFormateadorResultados
+        FormateadorResultadosIntPort objFormateadorResultados
     ) {
-        GestionarCuestionarioCUAdapter objGestionarCuestionarioCU = new GestionarCuestionarioCUAdapter(objGestionarCuestionarioGateway, objCuestionarioFormateadorResultados);
+        GestionarCuestionarioCUAdapter objGestionarCuestionarioCU = new GestionarCuestionarioCUAdapter(objGestionarCuestionarioGateway, objFormateadorResultados);
         return objGestionarCuestionarioCU;
     }
 

@@ -35,10 +35,10 @@ public class CuestionarioEntity {
     @Column(length = 90)
     private String descripcion;
 
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER, mappedBy = "objCuestionario")
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "objCuestionario")
     private List<PreguntaEntity> preguntas;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objCuestionario")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "objCuestionario")
     private List<RespuestaEntity> respuestas;
 
 }

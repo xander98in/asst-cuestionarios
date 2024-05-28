@@ -44,7 +44,7 @@ public class PreguntaEntity {
     private CuestionarioEntity objCuestionario;
 
     //Por defecto en asociaciones many to one el fetchType es EAGER
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_pregunta", nullable = false)
     private TipoPreguntaEntity objTipoPregunta;
 

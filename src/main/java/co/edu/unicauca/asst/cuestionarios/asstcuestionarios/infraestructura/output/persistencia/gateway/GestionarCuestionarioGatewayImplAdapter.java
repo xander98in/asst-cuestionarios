@@ -53,11 +53,20 @@ public class GestionarCuestionarioGatewayImplAdapter implements GestionarCuestio
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Cuestionario> listarCuestionarios(String titulo) {
+    @Transactional
+    public List<Cuestionario> listarCuestionariosConTitulo(String titulo) {
         Iterable<CuestionarioEntity> lista = this.cuestionarioRepositoryInt.findAllByTituloContainingIgnoreCaseOrderByIdCuestionarioDesc(titulo);
         List<Cuestionario> listaObtenida = this.cuestionarioModelMapper.map(lista, new TypeToken<List<Cuestionario>>() {
         }.getType());
+        return listaObtenida;
+    }
+
+    @Override
+    public List<Cuestionario> listarCuestionarios() {
+        Iterable<CuestionarioEntity> lista = this.cuestionarioRepositoryInt.findAll();
+        List<Cuestionario> listaObtenida = this.cuestionarioModelMapper.map(lista, new TypeToken<List<Cuestionario>>() {
+        }.getType());
+        
         return listaObtenida;
     }
 

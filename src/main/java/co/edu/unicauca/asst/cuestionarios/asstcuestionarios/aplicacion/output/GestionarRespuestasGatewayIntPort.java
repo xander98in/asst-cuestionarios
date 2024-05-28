@@ -12,6 +12,8 @@ public interface GestionarRespuestasGatewayIntPort {
 
     public List<Respuesta> listarRespuestasPorDocente(String numeroIdentificacion);
 
+    public List<Respuesta> listarRespuestasPorDocenteConId(Integer idPersona);
+
     public Boolean sePuedeResponderCuestionario(List<Respuesta> respuestas);
 
 }

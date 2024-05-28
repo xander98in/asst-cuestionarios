@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class CuestionarioDTOPeticion {
     private String descripcion;
     
     @Valid
+    @NotNull(message = "{cuestionario.preguntas.not_null}")
     private List<PreguntaDTOPeticion> preguntas;
 
 }

@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.GestionarDocenteGatewayIntPort;
+import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.modelos.Cuestionario;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.modelos.Docente;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.entidades.DepartamentoEntity;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.entidades.DocenteEntity;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.repositorios.DepartamentoRepositoryInt;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.repositorios.DocenteRepositoryInt;
+import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.repositorios.TelefonoRepositoryInt;
 
 @Service
 @Transactional
@@ -22,15 +24,18 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
 
     private final DocenteRepositoryInt docenteRepositoryInt;
     private final DepartamentoRepositoryInt departamentoRepositoryInt;
+    private final TelefonoRepositoryInt telefonoRepositoryInt;
     private final ModelMapper docenteModelMapper;
     
     public GestionarDocenteGatewayImplAdapter(
         DocenteRepositoryInt docenteRepositoryInt,
         DepartamentoRepositoryInt departamentoRepositoryInt,
+        TelefonoRepositoryInt telefonoRepositoryInt,
         @Qualifier("modelMapperDocente") ModelMapper docenteModelMapper
     ) {
         this.docenteRepositoryInt = docenteRepositoryInt;
         this.departamentoRepositoryInt = departamentoRepositoryInt;
+        this.telefonoRepositoryInt = telefonoRepositoryInt;
         this.docenteModelMapper = docenteModelMapper;
     }
 
@@ -46,11 +51,13 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
 
     @Override
     public Docente guardarDocente(Docente objDocente) {
+        System.out.println("Telefono: + " + objDocente.getObjTelefono().getNumero());
         DocenteEntity objDocenteEntity = this.docenteModelMapper.map(objDocente, DocenteEntity.class);
         List<DepartamentoEntity> departamentosEntityDocente = new ArrayList<>();
         objDocenteEntity.getDepartamentos().forEach(d -> {
             departamentosEntityDocente.add(this.departamentoRepositoryInt.findById(d.getIdDepartamento()).get());
         });
+        objDocenteEntity.getObjTelefono().setObjPersona(objDocenteEntity);
         objDocenteEntity.setDepartamentos(departamentosEntityDocente);
         DocenteEntity objDocenteEntityRegistrado = this.docenteRepositoryInt.save(objDocenteEntity);
         Docente objDocenteRespuesta = this.docenteModelMapper.map(objDocenteEntityRegistrado, Docente.class);
@@ -58,7 +65,7 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<Docente> listarDocentes() {
         Iterable<DocenteEntity> lista = this.docenteRepositoryInt.findAll();
         List<Docente> listaObtenida = this.docenteModelMapper.map(lista, new TypeToken<List<Docente>>() {

@@ -1,5 +1,7 @@
 package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.repositorios;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,4 +15,9 @@ public interface RespuestaRepositoryInt extends CrudRepository<RespuestaEntity, 
 
     boolean existsByObjCuestionarioIdCuestionario(Integer idCuestionario);
 
+    @Query("SELECT r FROM RespuestaEntity r JOIN r.objDocente d WHERE d.numeroIdentificacion = :numeroIdentificacion")
+    List<RespuestaEntity> findByNumeroIdentificacion(@Param("numeroIdentificacion") String numeroIdentificacion);
+
+    @Query("SELECT r FROM RespuestaEntity r WHERE r.objDocente.idPersona = :idPersona")
+    List<RespuestaEntity> findByIdPersona(@Param("idPersona") Integer idPersona);
 }

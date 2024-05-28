@@ -1,6 +1,7 @@
 package co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.controladorExcepciones;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -10,19 +11,34 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 //import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 //import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.controladorExcepciones.estructuraExcepciones.CodigoError;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.controladorExcepciones.estructuraExcepciones.Error;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.controladorExcepciones.estructuraExcepciones.ErrorUtils;
+import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadNoExisteException;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadYaExisteException;
+import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.controladorExcepciones.excepcionesPropias.ReglaNegocioException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class RestApiExceptionHandler {
 
-    
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Error> handleGenericException(final HttpServletRequest req,
+        final Exception ex, final Locale locale) {
+        
+        final Error error = ErrorUtils
+            .crearError(CodigoError.ERROR_GENERICO.getCodigo(),
+                CodigoError.ERROR_GENERICO.getLlaveMensaje(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value()).setUrl(req.getRequestURL().toString()).setMetodo(req.getMethod());
+                
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(EntidadYaExisteException.class)
     public ResponseEntity<Error> handleGenericException(final HttpServletRequest req,
         final EntidadYaExisteException ex) {
@@ -34,6 +50,30 @@ public class RestApiExceptionHandler {
             .setUrl(req.getRequestURL().toString()).setMetodo(req.getMethod());
 
         return new ResponseEntity<Error>(error, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(ReglaNegocioException.class)
+    public ResponseEntity<Error> handleGenericException(final HttpServletRequest req,
+        final ReglaNegocioException ex, final Locale locale) {
+
+        final Error error = ErrorUtils
+            .crearError(CodigoError.VIOLACION_REGLA_DE_NEGOCIO.getCodigo(), 
+                ex.formatException(),
+                HttpStatus.BAD_REQUEST.value()).setUrl(req.getRequestURL().toString()).setMetodo(req.getMethod());
+            
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntidadNoExisteException.class)
+    public ResponseEntity<Error> handleGenericException(final HttpServletRequest req,
+        final EntidadNoExisteException ex, final Locale locale) {
+                
+        final Error error = ErrorUtils
+            .crearError(CodigoError.ENTIDAD_NO_ENCONTRADA.getCodigo(),
+                String.format("%s, %s", CodigoError.ENTIDAD_NO_ENCONTRADA.getLlaveMensaje(), ex.getMessage()),
+                HttpStatus.NOT_FOUND.value()).setUrl(req.getRequestURL().toString()).setMetodo(req.getMethod());
+                
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -49,6 +89,12 @@ public class RestApiExceptionHandler {
         return new ResponseEntity<Map<String, String>>(errores, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    
     /* @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<Map<String, String>> handleInvalidFormatException(InvalidFormatException ex, WebRequest request) {
         Map<String, String> errores = new HashMap<>();
