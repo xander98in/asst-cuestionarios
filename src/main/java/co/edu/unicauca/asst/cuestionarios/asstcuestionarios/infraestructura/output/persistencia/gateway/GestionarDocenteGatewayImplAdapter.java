@@ -34,7 +34,6 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
         this.docenteModelMapper = docenteModelMapper;
     }
 
-
     @Override
     public Boolean existeDocentePorIdentificacion(String numeroIdentificacion) {
         return this.docenteRepositoryInt.existsByNumeroIdentificacion(numeroIdentificacion);
