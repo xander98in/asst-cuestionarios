@@ -10,4 +10,8 @@ public interface GestionarRespuestasGatewayIntPort {
 
     public List<Respuesta> listarRespuestas();
 
+    public List<Respuesta> listarRespuestasPorDocente(String numeroIdentificacion);
+
+    public Boolean sePuedeResponderCuestionario(List<Respuesta> respuestas);
+
 }

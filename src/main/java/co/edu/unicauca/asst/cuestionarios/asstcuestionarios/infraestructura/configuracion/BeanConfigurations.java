@@ -7,8 +7,10 @@ import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.Cu
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.GestionarCuestionarioGatewayIntPort;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.GestionarDocenteGatewayIntPort;
+import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.GestionarRespuestasGatewayIntPort;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.casosDeUso.GestionarCuestionarioCUAdapter;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.casosDeUso.GestionarDocenteCUAdapter;
+import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.casosDeUso.GestionarRespuestasCUAdapter;
 
 
 @Configuration
@@ -30,6 +32,15 @@ public class BeanConfigurations {
     ) {
         GestionarDocenteCUAdapter objGestionarDocenteCU = new GestionarDocenteCUAdapter(objGestionarDocenteGateway, objFormateadorResultados);
         return objGestionarDocenteCU;
+    }
+
+    @Bean
+    GestionarRespuestasCUAdapter crearGestionarRespuestasCUInt(
+        GestionarRespuestasGatewayIntPort objGestionarRespuestasGateway,
+        FormateadorResultadosIntPort objFormateadorResultados
+    ) {
+        GestionarRespuestasCUAdapter objGestionarRespuestasCU = new GestionarRespuestasCUAdapter(objGestionarRespuestasGateway, objFormateadorResultados);
+        return objGestionarRespuestasCU;
     }
 
 }

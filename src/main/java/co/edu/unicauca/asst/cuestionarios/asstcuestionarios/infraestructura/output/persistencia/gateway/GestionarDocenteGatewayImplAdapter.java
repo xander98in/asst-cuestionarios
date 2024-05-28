@@ -7,15 +7,14 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.aplicacion.output.GestionarDocenteGatewayIntPort;
-import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.modelos.Departamento;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.dominio.modelos.Docente;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.entidades.DepartamentoEntity;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.entidades.DocenteEntity;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.repositorios.DepartamentoRepositoryInt;
 import co.edu.unicauca.asst.cuestionarios.asstcuestionarios.infraestructura.output.persistencia.repositorios.DocenteRepositoryInt;
-import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
@@ -60,6 +59,7 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Docente> listarDocentes() {
         Iterable<DocenteEntity> lista = this.docenteRepositoryInt.findAll();
         List<Docente> listaObtenida = this.docenteModelMapper.map(lista, new TypeToken<List<Docente>>() {

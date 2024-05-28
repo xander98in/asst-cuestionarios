@@ -10,4 +10,6 @@ public interface GestionarRespuestasCUIntPort {
 
     public List<Respuesta> listarRespuestas();
 
+    public List<Respuesta> listarRespuestasPorDocente(String numeroIdentificacion);
+
 }
